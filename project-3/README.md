@@ -1,4 +1,3 @@
-This projet was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## USER STORIES
 
@@ -14,3 +13,7 @@ This projet was bootstrapped with [Create React App](https://github.com/facebook
 *delete their account (and connected objects)
 
 
+![Asanas index page](https://i.imgur.com/nusryVU.jpg)
+![session show/edit/create](https://i.imgur.com/kuKeVHr.jpg)
+![login/register](https://i.imgur.com/Rh800Mq.jpg)
+![sessions index](https://i.imgur.com/LGUSyKe.jpg)
