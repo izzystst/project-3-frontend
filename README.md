@@ -4,7 +4,7 @@
 * create a user
 * view asanas
 * create yoga sessions
-	*l og what theyve done
+	* log what theyve done
 * see all of their sessions
 * view other users sessions
 * edit/update their sesssions
@@ -14,6 +14,8 @@
 
 
 ![Asanas index page](https://i.imgur.com/nusryVU.jpg)
+![Asana show page](https://imgur.com/undefined)
+
 ![session show/edit/create](https://i.imgur.com/kuKeVHr.jpg)
 ![login/register](https://i.imgur.com/Rh800Mq.jpg)
 ![sessions index](https://i.imgur.com/LGUSyKe.jpg)
