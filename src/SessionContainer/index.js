@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Button, Label, Segment} from 'semantic-ui-react'
 import NewSessionForm from "../NewSessionForm"
-export default class DogContainer extends Component {
+export default class SessionContainer extends Component {
 	constructor(props){
 		super(props)
 		this.state={
@@ -10,29 +10,30 @@ export default class DogContainer extends Component {
 		}
 	}
 	componentDidMount(){
-		this.getSessions()
+		// this.getSessions()
 	}
-	getSessions= async () =>{
-		try{
-			const url = process.env.REACT_APP_API_URL + '/api/v1/sessions'
-			const sessionResponse = await fetch(url, {
-				credentials: 'include'
-			})
-			console.log(url)
-			console.log("here is the fetch call response")
-			console.log(sessionResponse)
-			const sessionJson = await sessionResponse.json()
-			console.log("getsessions in sessions container")
-			this.setState({
-				sessions: sessionJson.data
-			})
-		}catch(err){
-			console.log('error getting sessions', err)
-		}
-	}
+	// getSessions= async () =>{
+	// 	try{
+	// 		const url = process.env.REACT_APP_API_URL + '/api/v1/sessions'
+	// 		const sessionResponse = await fetch(url, {
+	// 			credentials: 'include'
+	// 		})
+	// 		console.log(url)
+	// 		console.log("here is the fetch call response")
+	// 		console.log(sessionResponse)
+	// 		const sessionJson = await sessionResponse.json()
+	// 		console.log("getsessions in sessions container")
+	// 		this.setState({
+	// 			sessions: sessionJson.data
+	// 		})
+	// 	}catch(err){
+	// 		console.log('error getting sessions', err)
+	// 	}
+	// }
 	createSession = async(sessionToAdd)=>{
 		try{
 			console.log("you are calling create session")
+			console.log(sessionToAdd)
 			const url = process.env.REACT_APP_API_URL +"/api/v1/sessions"
 			const createSessionResponse = await fetch(url, {
 				credentials: 'include',
@@ -49,7 +50,7 @@ export default class DogContainer extends Component {
 					this.setState(state)
 				}
 			}catch(err){
-			console.log(err)
+			console.log("error creating session", err)
 		}
 	}
 	render() {

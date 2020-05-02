@@ -10,11 +10,14 @@ export default class NewSessionForm extends Component {
 		}
 	}
 	handleChange = (event)=>{
+		console.log(event.taget)
 		this.setState({
 			[event.target.name]: event.target.value
 		})
 	}
 	handleSubmit = (event)=>{
+		event.preventDefault()
+		console.log(this.state)
 		this.props.createSession(this.state)
 		this.setState({
 			length:"",
@@ -23,6 +26,7 @@ export default class NewSessionForm extends Component {
 	}
 	render(){
 	return(
+		
 		<Segment>
 		<h4>Add new session</h4>
 		<Form onSubmit={this.handleSubmit}>
@@ -32,6 +36,7 @@ export default class NewSessionForm extends Component {
 				name="notes"
 				value={this.state.name}
 				placeholder="How did this go?"
+				onChange={this.handleChange}
 			/>
 			<Label>Length</Label>
 			<Form.Input
@@ -39,6 +44,7 @@ export default class NewSessionForm extends Component {
 				name="length"
 				value={this.state.value}
 				placeholder="How long did you practice for?"
+				onChange={this.handleChange}
 			/>
 		<Button type='Submit'>Create Session </Button>
 		</Form>
