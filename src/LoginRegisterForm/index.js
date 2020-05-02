@@ -61,7 +61,15 @@ export default class LoginRegisterForm extends Component {
 							placeholder="Enter a username"
 							value={this.state.username}
 							onChange={this.handleChange}
-						/>            
+						/>
+					<Label>ZipCode:</Label>
+					<Form.Input
+						type="text"
+						name="zipcode"
+						placeholder="enter your zipcode"
+						value={this.state.zipcode}
+						onChange={this.handleChange}
+					/>            
 					</React.Fragment>
 					}
 				
@@ -82,14 +90,7 @@ export default class LoginRegisterForm extends Component {
 						value={this.state.password}
 						onChange={this.handleChange}						
 					/>
-					<Label>ZipCode:</Label>
-					<Form.Input
-						type="text"
-						name="zipcode"
-						placeholder="enter your zipcode"
-						value={this.state.zipcode}
-						onChange={this.handleChange}
-					/>
+
 					<Button  type='Submit'>{this.state.action === 'Login'? "Log in" : "Sign Up" }</Button>
 				</Form>
 				{

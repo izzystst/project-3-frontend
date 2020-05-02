@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import LoginRegisterForm from "./LoginRegisterForm"
-
+import SessionContainer from "./SessionContainer"
 export default class App extends Component{
   constructor(){
     super()
@@ -78,11 +78,20 @@ export default class App extends Component{
 render(){
   return (
     <div className="App">
+    {
+      this.state.loggedIn
+      ?
+    <React.Fragment>
+    <SessionContainer />
+    </React.Fragment>
+    :
+    
     <LoginRegisterForm
       login={this.login}
       register={this.register}
     />
-    </div>
+    }   
+  </div>
   );
 }
 
