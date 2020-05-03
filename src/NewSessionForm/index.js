@@ -6,7 +6,8 @@ export default class NewSessionForm extends Component {
 		super(props)
 		this.state={
 			length:"",
-			notes:""
+			notes:"",
+			asana:"1"
 		}
 	}
 	handleChange = (event)=>{

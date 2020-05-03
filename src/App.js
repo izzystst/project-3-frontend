@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import LoginRegisterForm from "./LoginRegisterForm"
 import SessionContainer from "./SessionContainer"
+import Header from './Header'
 export default class App extends Component{
   constructor(){
     super()
@@ -82,11 +83,11 @@ render(){
       this.state.loggedIn
       ?
     <React.Fragment>
+    <Header email={this.state.loggedInUserEmail} logout={this.logout} />
     <SessionContainer />
     </React.Fragment>
     :
-    
-    <LoginRegisterForm
+     <LoginRegisterForm
       login={this.login}
       register={this.register}
     />
