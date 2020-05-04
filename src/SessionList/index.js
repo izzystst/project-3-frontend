@@ -3,13 +3,16 @@ import { Card, Button } from 'semantic-ui-react'
 
 export default function SessionList(props){
 	console.log(props)
-	console.log("these are the asana porps")
-	console.log(props.asanas)
-	const asanas = props.asanas
-	console.log(asanas)
-	const asanasSession = []
+	console.log("this is the props.sessions.asanas")
+	console.log(props.sessions)
+	console.log(props.sessions.asanas)
+	const propSess = props.sessions
+	for(let i = 0; i < propSess.length; i++){
+		console.log(propSess[i].asanas)
+	}
 	const sessions = props.sessions.map(session=>{
-
+		const asanas = session.asanas.map(asana=><Card.Meta key={asana.id}>{asana.name}</Card.Meta>)
+		// console.log(session)
 		return(
 			<Card key={session.id}>
 				<Card.Content>
@@ -17,9 +20,12 @@ export default function SessionList(props){
 					{session.date}
 				</Card.Header>
 				<Card.Content>
-
-				
+				{asanas}
 				</Card.Content>
+						
+					
+				
+
 				<Card.Description>
 					Notes: {session.notes} 
 					Length: {session.length}
