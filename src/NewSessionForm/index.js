@@ -7,8 +7,23 @@ export default class NewSessionForm extends Component {
 		this.state={
 			length:"",
 			notes:"",
-			asana:"1"
+			asana:[],
+			asanas:[]
 		}
+	}
+	componentDidMount = ()=>{
+		this.getAsanas()
+	}
+
+	onCheckChange= (event) =>{
+		console.log(event.target.id)
+		const asana = this.state.asana
+		asana.push(event.target.id)
+		console.log("this is the asana state in the chekc on change")
+		console.log(asana)
+		this.setState({
+			asana: asana
+		})
 	}
 	handleChange = (event)=>{
 		console.log(event.taget)
@@ -19,13 +34,37 @@ export default class NewSessionForm extends Component {
 	handleSubmit = (event)=>{
 		event.preventDefault()
 		console.log(this.state)
-		this.props.createSession(this.state)
+		const state = this.state
+		delete state.asanas
+		console.log("this is state after delete")
+		console.log(state)
+		this.props.createSession(state)
 		this.setState({
 			length:"",
-			notes:""
+			notes:"",
+			asana:[]
 		})
 	}
+	getAsanas = async () =>{
+	try{
+		const url = process.env.REACT_APP_API_URL + '/api/v1/asanas/'
+		const asanasResponse = await fetch(url, {
+			credentials: 'include'
+		})
+		const asanasJson = await asanasResponse.json()
+		console.log("this is the asanas json")
+		console.log(asanasJson)
+		this.setState({
+			asanas: asanasJson.data
+		})
+	}catch(err){
+		console.log(err)
+	}
+}
+
 	render(){
+		const asanas = this.state.asanas.map(asana=> <div key={asana.id}><Form.Input type="checkbox" name={asana.name} id={asana.id.toString()} onChange={this.onCheckChange}/> <label htmlFor={asana.id}>{asana.name}
+			</label></div>)
 	return(
 		
 		<Segment>
@@ -47,6 +86,10 @@ export default class NewSessionForm extends Component {
 				placeholder="How long did you practice for?"
 				onChange={this.handleChange}
 			/>
+			<Label>Asanas</Label>
+			<div>
+			{asanas}
+			</div>
 		<Button type='Submit'>Create Session </Button>
 		</Form>
 		</Segment>

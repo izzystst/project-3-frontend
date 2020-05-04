@@ -36,10 +36,10 @@ export default class SessionContainer extends Component {
 	}
 
 
-	createSession = async(sessionToAdd)=>{
+	createSession = async(state)=>{
 		try{
 			console.log("you are calling create session")
-			console.log(sessionToAdd)
+			console.log(state)
 			const url = process.env.REACT_APP_API_URL +"/api/v1/sessions/"
 			console.log(url)
 			const createSessionResponse = await fetch(url, {
@@ -48,7 +48,7 @@ export default class SessionContainer extends Component {
 		        headers: {
 		          'Content-Type': 'application/json'
 		        },
-				body: JSON.stringify(sessionToAdd)
+				body: JSON.stringify(state)
 				})
 			console.log("this is createSessionResponse")
 			console.log(createSessionResponse)
