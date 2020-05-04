@@ -26,39 +26,35 @@ export default class SessionContainer extends Component {
 			console.log(sessionResponse)
 			const sessionJson = await sessionResponse.json()
 			console.log("getsessions in sessions container")
-			console.log(sessionJson.data.session)
-			console.log(sessionJson['session'])
-			this.setState({
-				sessions: sessionJson.data.session,
-				asanas:sessionJson.data.asanas
-				
-			})			
+			console.log(sessionJson)
+							
+						
 		}catch(err){
 			console.log('error getting sessions', err)
 		}
 	}
 
-	createSessionAsanas = async () =>{
-		console.log("this is state in createSessionAsanas")
-		console.log(this.state.sessions)
-		const sessions = this.state.sessions
-		console.log(sessions.length)
-		console.log(this.state.asanas)
-		const asanas = this.state.asanas
+	// createSessionAsanas = async () =>{
+	// 	console.log("this is state in createSessionAsanas")
+	// 	console.log(this.state.sessions)
+	// 	const sessions = this.state.sessions
+	// 	console.log(sessions.length)
+	// 	console.log(this.state.asanas)
+	// 	const asanas = this.state.asanas
 		
 
-		for(let i = 0; i < sessions.length; i++){
-			console.log(sessions[i].id)
-			for(let k = 0; k <asanas.length; k++){
-				if(asanas[k].session.id === sessions[i].id){
-					console.log(asanas[k], "is a match with", sessions[i])
+	// 	for(let i = 0; i < sessions.length; i++){
+	// 		console.log(sessions[i].id)
+	// 		for(let k = 0; k <asanas.length; k++){
+	// 			if(asanas[k].session.id === sessions[i].id){
+	// 				console.log(asanas[k], "is a match with", sessions[i])
 
-				}
-			}
-			// for(let i = 0; i <asanas.length; i++){
-			// 	console.log(sessions[i])
-		}
-	}
+	// 			}
+	// 		}
+	// 		// for(let i = 0; i <asanas.length; i++){
+	// 		// 	console.log(sessions[i])
+	// 	}
+	// }
 
 	createSession = async(sessionToAdd)=>{
 		try{
