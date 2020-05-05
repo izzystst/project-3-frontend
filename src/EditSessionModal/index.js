@@ -29,8 +29,11 @@ export default class EditSessionModal extends Component {
 			// </label></div>)
 	return(
 		
-		<Segment>
+		<Modal open={true} closeIcon={true} onClose={this.props.closeModal}> 
+		<Header>
 		<h4>Edit This Session! </h4>
+		</Header>
+		<Modal.Content>
 		<Form onSubmit={this.handleSubmit}>
 			<Label>Notes:</Label>
 			<Form.Input
@@ -52,7 +55,9 @@ export default class EditSessionModal extends Component {
 		<Button type='Submit'>Update Session </Button>
 		</Modal.Actions>
 		</Form>
-		</Segment>
+		</Modal.Content>
+		</Modal>
+		
 
 
 	)

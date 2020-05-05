@@ -7,6 +7,7 @@ export default function Header(props){
 		padding: "10px",
 		backgroundColor: "#DDDDDD"
 	}
+	
 	return(
 		<nav style={headerStyle}>
 			<p>Logged in as {props.email}.&nbsp;
