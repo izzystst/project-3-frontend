@@ -9,12 +9,17 @@ export default class SessionContainer extends Component {
 		super(props)
 		this.state={
 			sessions:[],
-			idOfSessionToEdit: -1
+			asanas:[],
+			idOfSessionToEdit: -1,
+			renderSessionList: false,
+			renderAsanaList: false,
+			renderSessionAdd: true
 
 		}
 	}
 	componentDidMount(){
 		this.getSessions()
+		this.getAsanas()
 	}
 	getSessions= async () =>{
 		try{
@@ -130,6 +135,25 @@ export default class SessionContainer extends Component {
 		})
 	}
 
+
+getAsanas = async () =>{
+		try{
+			const url = process.env.REACT_APP_API_URL + '/api/v1/asanas/'
+			const asanasResponse = await fetch(url, {
+				credentials: 'include'
+			})
+			const asanasJson = await asanasResponse.json()
+			console.log("this is the asana data")
+			console.log(asanasJson)
+			this.setState({
+				asanas: asanasJson.data
+			})
+
+		}catch(err){
+			console.log(err)
+		}
+	}
+
 	
 
 	render() {
@@ -138,6 +162,9 @@ export default class SessionContainer extends Component {
 		return(
 			<React.Fragment>
 			<h2>SESSIONS CONTAINER</h2>
+			{/*{this.state.renderSessionAdd === true*/}
+
+				
 			<NewSessionForm createSession={this.createSession} />
 			<SessionList 
 				sessions={this.state.sessions}
@@ -145,6 +172,7 @@ export default class SessionContainer extends Component {
 				deleteSession={this.deleteSession}
 
 			/>
+			
 			{this.state.idOfSessionToEdit !== -1
 				&&
 			<EditSessionModal

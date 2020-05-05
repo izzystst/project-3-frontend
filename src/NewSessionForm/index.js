@@ -33,7 +33,17 @@ export default class NewSessionForm extends Component {
 	onCheckChange= (event) =>{
 		console.log(event.target.id)
 		const asana = this.state.asana
-		asana.push(event.target.id)
+		//if the event.target.id exists in the asana state then remove it (splice_), if not add it)
+		if(asana.includes(event.target.id)===true){
+			for( let i = 0; i < asana.length; i++){
+				if(asana[i]===event.target.id){
+					console.log(asana[i])
+					asana.splice(i, 1)
+				}
+			}
+		}else{
+			asana.push(event.target.id)
+		}
 		console.log("this is the asana state in the chekc on change")
 		console.log(asana)
 		this.setState({
