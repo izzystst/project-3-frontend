@@ -14,7 +14,22 @@ export default class NewSessionForm extends Component {
 	componentDidMount = ()=>{
 		this.getAsanas()
 	}
-
+	getAsanas = async () =>{
+	try{
+		const url = process.env.REACT_APP_API_URL + '/api/v1/asanas/'
+		const asanasResponse = await fetch(url, {
+			credentials: 'include'
+		})
+		const asanasJson = await asanasResponse.json()
+		console.log("this is the asanas json")
+		console.log(asanasJson)
+		this.setState({
+			asanas: asanasJson.data
+		})
+	}catch(err){
+		console.log(err)
+	}
+}
 	onCheckChange= (event) =>{
 		console.log(event.target.id)
 		const asana = this.state.asana
@@ -34,33 +49,32 @@ export default class NewSessionForm extends Component {
 	handleSubmit = (event)=>{
 		event.preventDefault()
 		console.log(this.state)
-		const state = this.state
-		delete state.asanas
+		const dataToSend = {length: this.state.length, notes: this.state.notes, asana: this.state.asana}
 		console.log("this is state after delete")
-		console.log(state)
-		this.props.createSession(state)
+		console.log(dataToSend)
+		this.props.createSession(dataToSend)
 		this.setState({
 			length:"",
 			notes:"",
 			asana:[]
 		})
 	}
-	getAsanas = async () =>{
-	try{
-		const url = process.env.REACT_APP_API_URL + '/api/v1/asanas/'
-		const asanasResponse = await fetch(url, {
-			credentials: 'include'
-		})
-		const asanasJson = await asanasResponse.json()
-		console.log("this is the asanas json")
-		console.log(asanasJson)
-		this.setState({
-			asanas: asanasJson.data
-		})
-	}catch(err){
-		console.log(err)
-	}
-}
+// 	getAsanas = async () =>{
+// 	try{
+// 		const url = process.env.REACT_APP_API_URL + '/api/v1/asanas/'
+// 		const asanasResponse = await fetch(url, {
+// 			credentials: 'include'
+// 		})
+// 		const asanasJson = await asanasResponse.json()
+// 		console.log("this is the asanas json")
+// 		console.log(asanasJson)
+// 		this.setState({
+// 			asanas: asanasJson.data
+// 		})
+// 	}catch(err){
+// 		console.log(err)
+// 	}
+// }
 
 	render(){
 		const asanas = this.state.asanas.map(asana=> <div key={asana.id}><Form.Input type="checkbox" name={asana.name} id={asana.id.toString()} onChange={this.onCheckChange}/> <label htmlFor={asana.id}>{asana.name}
