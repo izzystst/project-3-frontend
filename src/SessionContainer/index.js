@@ -81,7 +81,8 @@ export default class SessionContainer extends Component {
 		const url = process.env.REACT_APP_API_URL + "/api/v1/sessions/" + this.state.idOfSessionToEdit 
 		try{
 			const updateSessionResponse = await fetch(url, {
-				method: 'POST',
+				credentials: "include",
+				method: 'PUT',
 				body: JSON.stringify(updatedSessionInfo),
 				headers: {"Content-Type": "application/json"}
 
@@ -89,7 +90,9 @@ export default class SessionContainer extends Component {
 			console.log("this is the updateSessionResponse")
 			console.log(updateSessionResponse)
 			const updateSessionJson = await updateSessionResponse.json()
+			console.log(updateSessionJson)
 			if(updateSessionResponse.status===200){
+
 				const sessions = this.state.sessions
 				const indexdOfSessionBeingUpdated = sessions.findIndex(session => session.id == this.state.idOfSessionToEdit)
 				sessions[indexdOfSessionBeingUpdated] = updateSessionJson.data

@@ -4,10 +4,13 @@ import '../index.css'
 
 export default class EditSessionModal extends Component {
 	constructor(props){
+		console.log("this is props sessionToEdit.asanas")
+		console.log(props.sessionToEdit['asanas'])
 		super(props)
 		this.state={
 			notes: props.sessionToEdit.notes,
-			length: props.sessionToEdit.length
+			length: props.sessionToEdit.length,
+			asanas: props.sessionToEdit['asanas']
 		}
 	}
 	handleChange=(event)=>{
@@ -17,6 +20,8 @@ export default class EditSessionModal extends Component {
 	}
 	handleSubmit = (event) =>{
 		event.preventDefault()
+		console.log("this is state in submt")
+		console.log(this.state)
 		this.props.updateSession(this.state)
 	}
 		render(){

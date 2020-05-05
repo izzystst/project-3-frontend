@@ -7,9 +7,7 @@ export default function SessionList(props){
 	console.log(props.sessions)
 	console.log(props.sessions.asanas)
 	const propSess = props.sessions
-	for(let i = 0; i < propSess.length; i++){
-		console.log(propSess[i].asanas)
-	}
+
 	const sessions = props.sessions.map(session=>{
 		const asanas = session.asanas.map(asana=><Card.Meta key={asana.id}>{asana.name}</Card.Meta>)
 		// console.log(session)
