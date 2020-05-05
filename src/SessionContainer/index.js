@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import { Form, Button, Label, Segment} from 'semantic-ui-react'
-import AsanaContainer from '../AsanaContainer'
+// import AsanaContainer from '../AsanaContainer'
 import NewSessionForm from "../NewSessionForm"
 import SessionList from "../SessionList"
+import EditSessionModal from "../EditSessionModal"
 export default class SessionContainer extends Component {
 	constructor(props){
 		super(props)
 		this.state={
 			sessions:[],
+			idOfSessionToEdit: -1
 
 		}
 	}
@@ -67,6 +69,36 @@ export default class SessionContainer extends Component {
 			console.log("error creating session", err)
 		}
 	}
+	editSession=(idOfSessionToEdit)=>{
+		this.setState({
+			idOfSessionToEdit: idOfSessionToEdit
+		})
+	}
+
+	updateSession = async(updatedSessionInfo)=>{
+		const url = process.env.REACT_APP_API_URL + "/api/v1/sessions" + this.state.idOfSessionToEdit
+		try{
+			const updateSessionResponse = await fetch(url, {
+				method: 'PUT',
+				body: JSON.stringify(updatedSessionInfo),
+				headers: {"Content-Type": "application/json"}
+
+			})
+			const updateSessionJson = await updateSessionResponse.json()
+			if(updateSessionResponse.status===200){
+				const sessions = this.state.sessions
+				const indexdOfSessionBeingUpdated = sessions.findIndex(session => session.id == this.state.idOfSessionToEdit)
+				sessions[indexdOfSessionBeingUpdated] = updateSessionJson.data
+				this.setState({
+					sessions: sessions,
+					idOfSessionToEdit: -1
+				})
+			}
+		}catch(err){
+			console.log(err)
+		}
+
+	}
 	render() {
 		console.log(this.state)
 		// this.createSessionAsanas()
@@ -76,7 +108,16 @@ export default class SessionContainer extends Component {
 			<NewSessionForm createSession={this.createSession} />
 			<SessionList 
 				sessions={this.state.sessions}
+				editSession={this.editSession}
 			/>
+			{this.state.idOfSessionToEdit !== -1
+				&&
+			<EditSessionModal
+				sessionToEdit={this.state.sessions.find((session)=> session.id===this.state.idOfSessionToEdit)}
+				updateSession={this.updateSession}
+			/>
+
+			}
 			</React.Fragment>
 		)
 	}

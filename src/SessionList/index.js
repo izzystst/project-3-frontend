@@ -31,6 +31,10 @@ export default function SessionList(props){
 					Length: {session.length}
 				</Card.Description>
 				</Card.Content>
+				<Card.Content textAlign={"center"}>
+				<Button basic color = 'red'
+				onClick={()=> props.editSession(session.id)}>Edit</Button>
+				</Card.Content>
 				</Card>
 			)
 		}
