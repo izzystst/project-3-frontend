@@ -18,7 +18,7 @@ export default class SessionContainer extends Component {
 	}
 	getSessions= async () =>{
 		try{
-			const url = process.env.REACT_APP_API_URL + '/api/v1/sessions/'
+			const url = process.env.REACT_APP_API_URL + 'api/v1/sessions/'
 			const sessionResponse = await fetch(url, {
 				credentials: 'include'
 			})

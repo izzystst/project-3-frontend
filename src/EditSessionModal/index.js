@@ -31,7 +31,7 @@ export default class EditSessionModal extends Component {
 			<Form.Input
 				type="text"
 				name="notes"
-				value={this.state.name}
+				value={this.state.notes}
 				placeholder="How did this go?"
 				onChange={this.handleChange}
 			/>
