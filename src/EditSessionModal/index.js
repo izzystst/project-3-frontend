@@ -1,17 +1,27 @@
 import React, { Component } from 'react'
-import { Form, Button, Label, Segment } from 'semantic-ui-react'
+import { Form, Button, Label, Segment, Modal, Header } from 'semantic-ui-react'
+import '../index.css'
 
 export default class EditSessionModal extends Component {
 	constructor(props){
 		super(props)
-		this.state({
+		this.state={
 			notes: props.sessionToEdit.notes,
 			length: props.sessionToEdit.length
+		}
+	}
+	handleChange=(event)=>{
+		this.setState({
+			[event.target.name]: event.target.value
 		})
 	}
+	handleSubmit = (event) =>{
+		event.preventDefault()
+		this.props.updateSession(this.state)
+	}
 		render(){
-		const asanas = this.state.asanas.map(asana=> <div key={asana.id}><Form.Input type="checkbox" name={asana.name} id={asana.id.toString()} onChange={this.onCheckChange}/> <label htmlFor={asana.id}>{asana.name}
-			</label></div>)
+		// const asanas = this.state.asanas.map(asana=> <div key={asana.id}><Form.Input type="checkbox" name={asana.name} id={asana.id.toString()} onChange={this.onCheckChange}/> <label htmlFor={asana.id}>{asana.name}
+			// </label></div>)
 	return(
 		
 		<Segment>
@@ -29,15 +39,13 @@ export default class EditSessionModal extends Component {
 			<Form.Input
 				type='text'
 				name="length"
-				value={this.state.value}
+				value={this.state.length}
 				placeholder="How long did you practice for?"
 				onChange={this.handleChange}
 			/>
-			<Label>Asanas</Label>
-			<div>
-			{asanas}
-			</div>
+		<Modal.Actions>
 		<Button type='Submit'>Update Session </Button>
+		</Modal.Actions>
 		</Form>
 		</Segment>
 

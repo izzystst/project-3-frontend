@@ -76,14 +76,18 @@ export default class SessionContainer extends Component {
 	}
 
 	updateSession = async(updatedSessionInfo)=>{
-		const url = process.env.REACT_APP_API_URL + "/api/v1/sessions" + this.state.idOfSessionToEdit
+		console.log("update session being called")
+		console.log(updatedSessionInfo)
+		const url = process.env.REACT_APP_API_URL + "/api/v1/sessions/" + this.state.idOfSessionToEdit 
 		try{
 			const updateSessionResponse = await fetch(url, {
-				method: 'PUT',
+				method: 'POST',
 				body: JSON.stringify(updatedSessionInfo),
 				headers: {"Content-Type": "application/json"}
 
 			})
+			console.log("this is the updateSessionResponse")
+			console.log(updateSessionResponse)
 			const updateSessionJson = await updateSessionResponse.json()
 			if(updateSessionResponse.status===200){
 				const sessions = this.state.sessions
@@ -97,8 +101,34 @@ export default class SessionContainer extends Component {
 		}catch(err){
 			console.log(err)
 		}
+	}
+	deleteSession = async (idOfSessionToDelete)=>{
+		const url = process.env.REACT_APP_API_URL + '/api/v1/sessions/'+ idOfSessionToDelete
+		try{
+			const deleteSessionResponse = await fetch(url, {
+				credentials: 'include', 
+				method: 'DELETE'
+			})
+			const deleteSessionJson = await deleteSessionResponse.json()
+
+			if(deleteSessionResponse.status == 200){
+				this.setState({
+					sessions: this.state.sessions.filter(session => session.id != idOfSessionToDelete)
+				})
+			}
+		}catch(err){
+			console.log(err)
+		}
 
 	}
+	closeModal = () => {
+		this.setState({
+			idOfSessionToEdit: -1
+		})
+	}
+
+	
+
 	render() {
 		console.log(this.state)
 		// this.createSessionAsanas()
@@ -109,12 +139,15 @@ export default class SessionContainer extends Component {
 			<SessionList 
 				sessions={this.state.sessions}
 				editSession={this.editSession}
+				deleteSession={this.deleteSession}
+
 			/>
 			{this.state.idOfSessionToEdit !== -1
 				&&
 			<EditSessionModal
 				sessionToEdit={this.state.sessions.find((session)=> session.id===this.state.idOfSessionToEdit)}
 				updateSession={this.updateSession}
+				closeModal={this.closeModal}
 			/>
 
 			}
