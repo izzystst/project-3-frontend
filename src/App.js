@@ -8,7 +8,11 @@ export default class App extends Component{
     super()
     this.state={
       loggedIn:false,
-      loggedInUserEmail: ''
+      loggedInUserEmail: '',
+      renderSessionList: false,
+      renderAsanaList: true,
+      renderSessionAdd: false
+
     }
   }
 
@@ -68,12 +72,38 @@ export default class App extends Component{
       if(logoutResponse.status === 200){
         this.setState({
           loggedIn: false,
-          loggedInUserEmail:''
+          loggedInUserEmail:'',
+
         })
       }
     }catch(err){
       console.log(err)
     }
+  }
+  showSessionAdd=()=>{
+      console.log("session add has been clicked")
+      this.setState({
+        renderSessionAdd: true,
+        renderSessionList: false,
+        renderAsanaList: false
+      })
+  }
+  showAsanaList=()=>{
+    console.log("asana list will now be rendered ")
+    this.setState({
+      renderSessionAdd: false,
+      renderSessionList: false,
+      renderAsanaList: true
+    })
+
+  } 
+  showSessionList=()=>{
+    console.log("session list will now be rendered")
+    this.setState({
+      renderSessionAdd: false,
+      renderSessionList: true,
+      renderAsanaList: false
+    })    
   }
 
 render(){
@@ -82,15 +112,26 @@ render(){
     {
       this.state.loggedIn
       ?
-    <React.Fragment>
-    <Header email={this.state.loggedInUserEmail} logout={this.logout} />
-    <SessionContainer />
-    </React.Fragment>
-    :
-     <LoginRegisterForm
-      login={this.login}
-      register={this.register}
-    />
+      <React.Fragment>
+      <Header
+        email={this.state.loggedInUserEmail} 
+        logout={this.logout}
+        showSessionAdd={this.showSessionAdd}
+        showAsanaList={this.showAsanaList}
+        showSessionList={this.showSessionList}
+
+        />
+      <SessionContainer 
+        renderSessionAdd={this.state.renderSessionAdd}
+        renderAsanaList={this.state.renderAsanaList}
+        renderSessionList={this.state.renderSessionList}
+        />
+      </React.Fragment>
+      :
+      <LoginRegisterForm
+        login={this.login}
+        register={this.register}
+      />
     }   
   </div>
   );

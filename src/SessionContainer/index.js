@@ -4,6 +4,7 @@ import { Form, Button, Label, Segment} from 'semantic-ui-react'
 import NewSessionForm from "../NewSessionForm"
 import SessionList from "../SessionList"
 import EditSessionModal from "../EditSessionModal"
+import AsanaList from '../AsanaList'
 export default class SessionContainer extends Component {
 	constructor(props){
 		super(props)
@@ -11,15 +12,13 @@ export default class SessionContainer extends Component {
 			sessions:[],
 			asanas:[],
 			idOfSessionToEdit: -1,
-			renderSessionList: false,
-			renderAsanaList: false,
-			renderSessionAdd: true
+
 
 		}
 	}
 	componentDidMount(){
 		this.getSessions()
-		this.getAsanas()
+		// this.getAsanas()
 	}
 	getSessions= async () =>{
 		try{
@@ -136,23 +135,22 @@ export default class SessionContainer extends Component {
 	}
 
 
-getAsanas = async () =>{
-		try{
-			const url = process.env.REACT_APP_API_URL + '/api/v1/asanas/'
-			const asanasResponse = await fetch(url, {
-				credentials: 'include'
-			})
-			const asanasJson = await asanasResponse.json()
-			console.log("this is the asana data")
-			console.log(asanasJson)
-			this.setState({
-				asanas: asanasJson.data
-			})
-
-		}catch(err){
-			console.log(err)
-		}
-	}
+// 	getAsanas = async () =>{
+// 	try{
+// 		const url = process.env.REACT_APP_API_URL + '/api/v1/asanas/'
+// 		const asanasResponse = await fetch(url, {
+// 			credentials: 'include'
+// 		})
+// 		const asanasJson = await asanasResponse.json()
+// 		console.log("this is the asanas json")
+// 		console.log(asanasJson)
+// 		this.setState({
+// 			asanas: asanasJson.data
+// 		})
+// 	}catch(err){
+// 		console.log(err)
+// 	}
+// }
 
 	
 
@@ -162,9 +160,10 @@ getAsanas = async () =>{
 		return(
 			<React.Fragment>
 			<h2>SESSIONS CONTAINER</h2>
-			{/*{this.state.renderSessionAdd === true*/}
 
-				
+			{this.props.renderSessionAdd === true
+			&&	
+			<div>
 			<NewSessionForm createSession={this.createSession} />
 			<SessionList 
 				sessions={this.state.sessions}
@@ -172,7 +171,28 @@ getAsanas = async () =>{
 				deleteSession={this.deleteSession}
 
 			/>
-			
+			</div>
+			}
+			{this.props.renderSessionList === true
+			&&
+			<div>
+			<SessionList 
+				sessions={this.state.sessions}
+				editSession={this.editSession}
+				deleteSession={this.deleteSession}
+
+			/>
+			</div>
+			}
+			{this.props.renderAsanaList === true
+			&&
+			<div>
+			<AsanaList />
+
+			</div>
+
+			}
+
 			{this.state.idOfSessionToEdit !== -1
 				&&
 			<EditSessionModal

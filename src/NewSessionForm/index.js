@@ -98,7 +98,7 @@ export default class NewSessionForm extends Component {
 			<Form.Input
 				type="text"
 				name="notes"
-				value={this.state.name}
+				value={this.state.notes}
 				placeholder="How did this go?"
 				onChange={this.handleChange}
 			/>
@@ -106,7 +106,7 @@ export default class NewSessionForm extends Component {
 			<Form.Input
 				type='text'
 				name="length"
-				value={this.state.value}
+				value={this.state.length}
 				placeholder="How long did you practice for?"
 				onChange={this.handleChange}
 			/>
