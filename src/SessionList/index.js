@@ -34,14 +34,14 @@ export default function SessionList(props){
 			{
 				props.currentId === session.user.id
 				&&
-				<div>
+				
 				<Card.Content textAlign={"center"}>
 				<Button basic color = 'yellow'
 				onClick={()=> props.editSession(session.id)}>Edit</Button>
 				<Button basic color = 'red'
 				onClick={()=> props.deleteSession(session.id)}>Delete</Button>
 				</Card.Content>
-				</div>
+				
 			}
 				</Card>
 			)
