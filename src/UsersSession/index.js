@@ -1,17 +1,13 @@
 import React from 'react'
 import { Card, Button } from 'semantic-ui-react'
 
-export default function SessionList(props){
-	console.log("this is the props")
+export default function UserSession(props){
 	console.log(props)
-	
 	console.log("this is the props.sessions.asanas")
-	console.log(props.sessions)
-	console.log(props.sessions.asanas)
-	const propSess = props.sessions
+	console.log(props.UsersSessions)
+	
 
-	const sessions = props.sessions.map(session=>{
-		const asanas = session.asanas.map(asana=><Card.Meta key={asana.id}>{asana.name}</Card.Meta>)
+	const sessions = props.UsersSessions.map(session=>{
 		// console.log(session)
 		return(
 			<Card key={session.id}>
@@ -20,7 +16,6 @@ export default function SessionList(props){
 					{session.date}
 				</Card.Header>
 				<Card.Content>
-				{asanas}
 				</Card.Content>
 						
 					
@@ -31,18 +26,12 @@ export default function SessionList(props){
 					Length: {session.length}
 				</Card.Description>
 				</Card.Content>
-			{
-				props.currentId === session.user.id
-				&&
-				<div>
 				<Card.Content textAlign={"center"}>
 				<Button basic color = 'yellow'
 				onClick={()=> props.editSession(session.id)}>Edit</Button>
 				<Button basic color = 'red'
 				onClick={()=> props.deleteSession(session.id)}>Delete</Button>
 				</Card.Content>
-				</div>
-			}
 				</Card>
 			)
 		}

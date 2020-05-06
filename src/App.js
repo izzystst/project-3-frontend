@@ -9,6 +9,7 @@ export default class App extends Component{
     this.state={
       loggedIn:false,
       loggedInUserEmail: '',
+      currentUserId:'',
       renderSessionList: true,
       renderAsanaList: false,
       renderSessionAdd: false
@@ -32,7 +33,8 @@ export default class App extends Component{
       if(registerResponse.status === 201){
         this.setState({
           loggedIn: true,
-          loggedInUserEmail: registerJson.data.email
+          loggedInUserEmail: registerJson.data.email,
+          currentUserId: registerJson.data.id
         })
       }
     }catch(err){
@@ -55,7 +57,10 @@ export default class App extends Component{
       if(loginResponse.status ===200){
         this.setState({
           loggedIn: true,
-          loggedInUserEmail: loginJson.data.email
+          loggedInUserEmail: loginJson.data.email,
+          currentUserId: loginJson.data.id
+
+
         })
       }
     }catch(err){
@@ -73,6 +78,8 @@ export default class App extends Component{
         this.setState({
           loggedIn: false,
           loggedInUserEmail:'',
+          currentUserId: ''
+
 
         })
       }
@@ -125,6 +132,7 @@ render(){
         renderSessionAdd={this.state.renderSessionAdd}
         renderAsanaList={this.state.renderAsanaList}
         renderSessionList={this.state.renderSessionList}
+        currentUserId={this.state.currentUserId}
         />
       </React.Fragment>
       :

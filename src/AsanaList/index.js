@@ -11,6 +11,12 @@ export default function AsanaContainer(props){
 				<Card.Header>
 					{asana.name}
 				</Card.Header>
+				<Card.Meta>
+				{asana.difficulty}
+				</Card.Meta>
+				<Card.Description>
+				{asana.instructions}
+				</Card.Description>
 				</Card.Content>
 			</Card>
 

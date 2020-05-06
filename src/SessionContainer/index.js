@@ -180,6 +180,7 @@ export default class SessionContainer extends Component {
 				sessions={this.state.sessions}
 				editSession={this.editSession}
 				deleteSession={this.deleteSession}
+				currentId={this.props.currentUserId}
 
 			/>
 			</div>
