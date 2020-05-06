@@ -9,8 +9,8 @@ export default class App extends Component{
     this.state={
       loggedIn:false,
       loggedInUserEmail: '',
-      renderSessionList: false,
-      renderAsanaList: true,
+      renderSessionList: true,
+      renderAsanaList: false,
       renderSessionAdd: false
 
     }

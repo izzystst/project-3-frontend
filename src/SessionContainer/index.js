@@ -18,7 +18,7 @@ export default class SessionContainer extends Component {
 	}
 	componentDidMount(){
 		this.getSessions()
-		// this.getAsanas()
+		this.getAsanas()
 	}
 	getSessions= async () =>{
 		try{
@@ -135,22 +135,22 @@ export default class SessionContainer extends Component {
 	}
 
 
-// 	getAsanas = async () =>{
-// 	try{
-// 		const url = process.env.REACT_APP_API_URL + '/api/v1/asanas/'
-// 		const asanasResponse = await fetch(url, {
-// 			credentials: 'include'
-// 		})
-// 		const asanasJson = await asanasResponse.json()
-// 		console.log("this is the asanas json")
-// 		console.log(asanasJson)
-// 		this.setState({
-// 			asanas: asanasJson.data
-// 		})
-// 	}catch(err){
-// 		console.log(err)
-// 	}
-// }
+	getAsanas = async () =>{
+	try{
+		const url = process.env.REACT_APP_API_URL + '/api/v1/asanas/'
+		const asanasResponse = await fetch(url, {
+			credentials: 'include'
+		})
+		const asanasJson = await asanasResponse.json()
+		console.log("this is the asanas json")
+		console.log(asanasJson)
+		this.setState({
+			asanas: asanasJson.data
+		})
+	}catch(err){
+		console.log(err)
+	}
+}
 
 	
 
@@ -187,7 +187,7 @@ export default class SessionContainer extends Component {
 			{this.props.renderAsanaList === true
 			&&
 			<div>
-			<AsanaList />
+			<AsanaList asanas={this.state.asanas}/>
 
 			</div>
 

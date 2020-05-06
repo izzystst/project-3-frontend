@@ -1,38 +1,29 @@
 import React, { Component } from 'react'
-import { Form, Button, Label, Segment} from 'semantic-ui-react'
+import { Card, Form, Button, Label, Segment} from 'semantic-ui-react'
 
-export default class AsanaContainer extends Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			asanas: []
-		}
+export default function AsanaContainer(props){
+	console.log(props.asanas)
+
+	const asanas = props.asanas.map(asana=>{
+		return(
+			<Card key={asana.id}>
+				<Card.Content>
+				<Card.Header>
+					{asana.name}
+				</Card.Header>
+				</Card.Content>
+			</Card>
+
+
+			)
 	}
-	componentDidMount() {
-		this.getAsanas()
+)
 
-	}
-
-
-	getAsanas = async () =>{
-		try{
-			const url = process.env.REACT_APP_API_URL + '/api/v1/asanas/'
-			const asanasResponse = await fetch(url, {
-				credentials: 'include'
-			})
-			const asanasJson = await asanasResponse.json()
-			console.log(asanasJson)
-			this.setState({
-				asanas: asanasJson.data
-			})
-		}catch(err){
-			console.log(err)
-		}
-	}
-render(){
 	return(
-		AsanaContainer
+		<Card.Group centered={true}>
+
+			{asanas}
+		</Card.Group>
 		)
 }	
 
-}
