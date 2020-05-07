@@ -99,7 +99,12 @@ export default class SessionContainer extends Component {
 
 				const sessions = this.state.sessions
 				const indexdOfSessionBeingUpdated = sessions.findIndex(session => session.id == this.state.idOfSessionToEdit)
-				sessions[indexdOfSessionBeingUpdated] = updateSessionJson.data
+				 
+
+
+				sessions[indexdOfSessionBeingUpdated].notes = updateSessionJson.data.notes
+				sessions[indexdOfSessionBeingUpdated].length = updateSessionJson.data.length
+
 				this.setState({
 					sessions: sessions,
 					idOfSessionToEdit: -1
