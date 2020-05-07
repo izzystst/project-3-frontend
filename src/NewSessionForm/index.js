@@ -8,7 +8,8 @@ export default class NewSessionForm extends Component {
 			length:"",
 			notes:"",
 			asana:[],
-			asanas:[]
+			asanas:[],
+
 		}
 	}
 	componentDidMount = ()=>{
@@ -31,7 +32,14 @@ export default class NewSessionForm extends Component {
 	}
 }
 	onCheckChange= (event) =>{
-		console.log(event.target.id)
+		console.log("this is the event current target ")
+		const checkBox = event.currentTarget
+		const id = checkBox.id
+		const key = 'checkedForAsana' + id
+
+		console.log(id)
+		console.log(event.currentTarget.value)
+		console.log(event.target)
 		const asana = this.state.asana
 		//if the event.target.id exists in the asana state then remove it (splice_), if not add it)
 		if(asana.includes(event.target.id)===true){
@@ -47,7 +55,8 @@ export default class NewSessionForm extends Component {
 		console.log("this is the asana state in the chekc on change")
 		console.log(asana)
 		this.setState({
-			asana: asana
+			asana: asana,
+			[key]: event.currentTarget.checked
 		})
 	}
 	handleChange = (event)=>{
@@ -63,11 +72,14 @@ export default class NewSessionForm extends Component {
 		console.log("this is state after delete")
 		console.log(dataToSend)
 		this.props.createSession(dataToSend)
-		this.setState({
-			length:"",
-			notes:"",
-			asana:[]
+		const state = {length: "", notes: "", asana:[]}
+		Object.keys(this.state).forEach((key)=>{
+			if(key.includes("checked")){
+				state[key] = false
+			}
+
 		})
+		this.setState(state)
 	}
 // 	getAsanas = async () =>{
 // 	try{
@@ -87,7 +99,7 @@ export default class NewSessionForm extends Component {
 // }
 
 	render(){
-		const asanas = this.state.asanas.map(asana=> <div key={asana.id}><Form.Input type="checkbox" name={asana.name} id={asana.id.toString()} onChange={this.onCheckChange}/> <label htmlFor={asana.id}>{asana.name}
+		const asanas = this.state.asanas.map(asana=> <div key={asana.id}><Form.Input type="checkbox" checked={this.state["checkedForAsana" + asana.id]} name={asana.name} id={asana.id.toString()} onChange={this.onCheckChange}/> <label htmlFor={asana.id}>{asana.name}
 			</label></div>)
 	return(
 		

@@ -16,9 +16,9 @@ export default class SessionContainer extends Component {
 
 		}
 	}
-	componentDidMount(){
-		this.getSessions()
-		this.getAsanas()
+	async componentDidMount(){
+		await this.getSessions()
+		await this.getAsanas()
 	}
 	getSessions= async () =>{
 		try{
